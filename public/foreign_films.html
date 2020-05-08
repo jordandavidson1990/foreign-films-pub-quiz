@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forign Films</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Amatic+SC"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <style>
+      html {
+        box-sizing: border-box;
+        background: #ffc600;
+        font-family: "helvetica neue";
+        font-size: 20px;
+        font-weight: 200;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+
+      .panels {
+        min-height: 100vh;
+        overflow: hidden;
+        display: flex;
+      }
+
+      .panel {
+        background: #6b0f9c;
+        /* box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1); */
+        color: white;
+        text-align: center;
+        align-items: center;
+        /* Safari transitionend event.propertyName === flex */
+        /* Chrome + FF transitionend event.propertyName === flex-grow */
+        transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+          flex 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), background 0.2s;
+        font-size: 20px;
+        background-size: cover;
+        background-position: center;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .panel1 {
+        background-image: url(assets/crouching.jpg);
+      }
+      .panel2 {
+        background-image: url(assets/amour.jpg);
+      }
+      .panel3 {
+        background-image: url(assets/CinemaParadiso.jpg);
+      }
+      .panel4 {
+        background-image: url(assets/cold.jpg);
+      }
+      .panel5 {
+        background-image: url(assets/parasite.jpg);
+      }
+      .panel6 {
+        background-image: url(assets/roma.png);
+      }
+      .panel7 {
+        background-image: url(assets/saul.jpg);
+      }
+      .panel8 {
+        background-image: url(assets/secret.jpg);
+      }
+      .panel9 {
+        background-image: url(assets/separation.jpg);
+      }
+      .panel10 {
+        background-image: url(assets/waltz.jpg);
+      }
+
+      /* Flex Children */
+      .panel > * {
+        margin: 0;
+        width: 100%;
+        transition: transform 0.5s;
+        flex: 1 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .panel > *:first-child {
+        transform: translateY(-100%);
+      }
+      .panel.open-active > *:first-child {
+        transform: translateY(0);
+      }
+      .panel > *:last-child {
+        transform: translateY(100%);
+      }
+      .panel.open-active > *:last-child {
+        transform: translateY(0);
+      }
+
+      .panel p {
+        text-transform: uppercase;
+        font-family: "Amatic SC", cursive;
+        text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+        font-size: 2em;
+      }
+
+      .panel p:nth-child(2) {
+        font-size: 4em;
+      }
+
+      .panel.open {
+        font-size: 40px;
+        flex: 5;
+      }
+    </style>
+    <div class="panels">
+      <div class="panel panel1">
+        <p>Crouching Tiger Hidden Dragen</p>
+        <p>1</p>
+        <p data-key="answer" data-number="1">Answer</p>
+      </div>
+      <div class="panel panel2">
+        <p>Amour</p>
+        <p>2</p>
+        <p data-key="answer" data-number="2">Answer</p>
+      </div>
+      <div class="panel panel3">
+        <p>Cinema Paradiso</p>
+        <p>3</p>
+        <p data-key="answer" data-number="3">Answer</p>
+      </div>
+      <div class="panel panel4">
+        <p>Cold War</p>
+        <p>4</p>
+        <p data-key="answer" data-number="4">Answer</p>
+      </div>
+      <div class="panel panel5">
+        <p>Parasite</p>
+        <p>5</p>
+        <p data-key="answer" data-number="5">Answer</p>
+      </div>
+      <div class="panel panel6">
+        <p>Roma</p>
+        <p>6</p>
+        <p data-key="answer" data-number="6">Answer</p>
+      </div>
+      <div class="panel panel7">
+        <p>Son of Saul</p>
+        <p>7</p>
+        <p data-key="answer" data-number="7">Answer</p>
+      </div>
+      <div class="panel panel8">
+        <p>Secret in their Eyes</p>
+        <p>8</p>
+        <p data-key="answer" data-number="8">Answer</p>
+      </div>
+      <div class="panel panel9">
+        <p>A Separation</p>
+        <p>9</p>
+        <p data-key="answer" data-number="9">Answer</p>
+      </div>
+      <div class="panel panel10">
+        <p>Waltz with Bashir</p>
+        <p>10</p>
+        <p data-key="answer" data-number="10">Answer</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    const answers = [
+      "Taiwan",
+      "Austria",
+      "Italy",
+      "Poland",
+      "South Korea",
+      "Mexico",
+      "Hungary",
+      "Argentina",
+      "Iran",
+      "Israel",
+    ];
+    const panels = document.querySelectorAll(".panel");
+    function toggleOpen() {
+      this.classList.toggle("open");
+    }
+    function handleIt() {
+      this.textContent = answers[parseInt(this.dataset.number) - 1];
+    }
+
+    function toggleActive(e) {
+      if (e.propertyName.includes("flex")) {
+        this.classList.toggle("open-active");
+      }
+      const answer = this.querySelector('p[data-key="answer"]');
+      answer.textContent = "Answer";
+      answer.addEventListener("mouseover", handleIt);
+    }
+    panels.forEach((panel) => panel.addEventListener("click", toggleOpen));
+    panels.forEach((panel) =>
+      panel.addEventListener("transitionend", toggleActive)
+    );
+  </script>
+</html>
